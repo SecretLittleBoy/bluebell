@@ -1,33 +1,24 @@
 package snowflake
 
 import (
-	//"fmt"
 	"github.com/bwmarrin/snowflake"
 	"time"
+	"bluebell/settings"
 )
 
 var node *snowflake.Node
 
-func Init(startTime string, machineID int64) (err error) {
+func Init() (err error) {
 	var st time.Time
-	st, err = time.Parse("2006-01-01", startTime)
+	st, err = time.Parse("2006-01-01", settings.Config.SnowflakeConfig.StartTime)
 	if err != nil {
 		return
 	}
 	snowflake.Epoch = st.UnixMilli()
-	node, err = snowflake.NewNode(machineID)
+	node, err = snowflake.NewNode(settings.Config.SnowflakeConfig.MachineID)
 	return
 }
 
 func GenID() int64 {
 	return node.Generate().Int64()
 }
-
-// func main(){
-// 	if err:=Init("2024-01-01", 1); err!=nil{
-// 		fmt.Printf("init failed: %v\n", err)
-// 		return
-// 	}
-// 	id := GenID()
-// 	fmt.Printf("id: %d\n", id)
-// }

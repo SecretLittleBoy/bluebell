@@ -6,6 +6,7 @@ import (
 	"bluebell/logger"
 	"bluebell/routes"
 	"bluebell/settings"
+	"bluebell/pkg/snowflake"
 	"fmt"
 	"net/http"
 	"os"
@@ -29,6 +30,11 @@ func main() {
 	}
 	defer zap.L().Sync()
 	zap.L().Debug("logger init success...")
+
+	if err := snowflake.Init(); err != nil {
+		fmt.Printf("init snowflake failed, err:%v\n", err)
+		return
+	}
 
 	if err := mysql.Init(); err != nil {
 		fmt.Printf("init mysql failed, err:%v\n", err)

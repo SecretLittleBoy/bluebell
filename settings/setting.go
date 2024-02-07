@@ -13,6 +13,7 @@ type ConfigStruct struct {
 	*LogConfig   `mapstructure:"log"`
 	*MySQLConfig `mapstructure:"mysql"`
 	*RedisConfig `mapstructure:"redis"`
+	*SnowflakeConfig `mapstructure:"snowflake"`
 }
 
 type AppConfig struct {
@@ -48,6 +49,11 @@ type RedisConfig struct {
 	PoolSize int    `mapstructure:"pool_size"`
 }
 
+type SnowflakeConfig struct {
+	StartTime string `mapstructure:"start_time"`
+	MachineID int64  `mapstructure:"machine_id"`
+}
+
 func Init() (err error) {
 	viper.SetConfigName("config.yaml")
 	viper.SetConfigType("yaml")
@@ -74,5 +80,5 @@ func Init() (err error) {
 }
 
 func PrintConfig() {
-	fmt.Printf("load config: app=%#v, log=%#v, mysql=%#v, redis=%#v \n", Config.AppConfig, Config.LogConfig, Config.MySQLConfig, Config.RedisConfig)
+	fmt.Printf("load config: app=%#v, log=%#v, mysql=%#v, redis=%#v,snowflake=%#v \n", Config.AppConfig, Config.LogConfig, Config.MySQLConfig, Config.RedisConfig, Config.SnowflakeConfig)
 }
