@@ -7,6 +7,7 @@ import (
 	"bluebell/routes"
 	"bluebell/settings"
 	"bluebell/pkg/snowflake"
+	"bluebell/controller"
 	"fmt"
 	"net/http"
 	"os"
@@ -47,6 +48,10 @@ func main() {
 		return
 	}
 	defer redis.Close()	
+
+	if err := controller.InitTrans("zh"); err != nil {
+		fmt.Printf("init gin translator failed, err:%v\n", err)
+	}
 
 	r := routes.Init()
 	fmt.Println(settings.Config.AppConfig.Port)

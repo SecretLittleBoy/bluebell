@@ -2,13 +2,13 @@ package logger
 
 import (
 	"bluebell/settings"
-	"time"
 	"net"
+	"net/http"
+	"net/http/httputil"
 	"os"
 	"runtime/debug"
 	"strings"
-	"net/http/httputil"
-	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/natefinch/lumberjack"
@@ -29,11 +29,17 @@ func Init() (err error) {
 	if err != nil {
 		return
 	}
-	core := zapcore.NewCore(
-		encoder,
-		writeSyncer,
-		l,
-	)
+	var core zapcore.Core
+	if settings.Config.Mode == "dev" {
+		// 进入开发模式，日志输出到终端
+		consoleEncoder := zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())
+		core = zapcore.NewTee(
+			zapcore.NewCore(encoder, writeSyncer, l),
+			zapcore.NewCore(consoleEncoder, zapcore.Lock(os.Stdout), zapcore.DebugLevel),
+		)
+	} else {
+		core = zapcore.NewCore(encoder, writeSyncer, l)
+	}
 	lg := zap.New(core, zap.AddCaller())
 	zap.ReplaceGlobals(lg)
 	return

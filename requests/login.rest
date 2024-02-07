@@ -1,0 +1,22 @@
+POST http://localhost:8081/login
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+###
+POST http://localhost:8081/login
+
+{
+    "username": "lyh",
+    "password": "12345678"
+}
+
+###
+POST http://localhost:8081/login
+
+{
+    "username": "lyh",
+    "password": "88888888"
+}

@@ -1,0 +1,7 @@
+GET http://localhost:8081/
+
+###
+GET http://localhost:8081/version
+
+###
+GET http://localhost:8081/ping
