@@ -24,18 +24,9 @@ func Init() *gin.Engine {
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
 	})
-	r.GET("/userInfo", middlewares.JWTAuthMiddleware(), func(ctx *gin.Context) {
-		userID, username, err := controller.GetCurrentUser(ctx)
-		if err != nil {
-			controller.ResponseError(ctx, controller.CodeNeedLogin)
-			return
-		}
-		controller.ResponseSuccess(ctx, gin.H{
-			"user_id":  userID,
-			"username": username,
-		})
-	})
+	r.GET("/userInfo", middlewares.JWTAuthMiddleware(), controller.UserInfoHander)
 
+	r.POST("/refreshToken", controller.RefreshTokenHandler)
 	r.POST("/signup", controller.SignUpHandler)
 	r.POST("/login", controller.LoginHandler)
 

@@ -43,11 +43,48 @@ func LoginHandler(c *gin.Context) {
 		}
 		return
 	}
-	token, err := logic.Login(&p)
+	access_token, refresh_token, err := logic.Login(&p)
 	if err != nil {
 		zap.L().Error("Login failed", zap.Error(err))
 		ResponseError(c, CodeInvalidPassword)
 		return
 	}
-	ResponseSuccess(c, token)
+	ResponseSuccess(c, gin.H{
+		"access_token":  access_token,
+		"refresh_token": refresh_token})
+}
+
+func UserInfoHander(ctx *gin.Context) {
+	userID, username, err := GetCurrentUser(ctx)
+	if err != nil {
+		ResponseError(ctx, CodeNeedLogin)
+		return
+	}
+	ResponseSuccess(ctx, gin.H{
+		"user_id":  userID,
+		"username": username,
+	})
+}
+
+func RefreshTokenHandler(ctx *gin.Context) {
+	var p models.ParamRefreshToken
+	if err := ctx.ShouldBindJSON(&p); err != nil {
+		zap.L().Error("RefreshToken with invalid param", zap.Error(err))
+		err_in_ValidationErrors_type, ok := err.(validator.ValidationErrors)
+		if !ok {
+			ResponseError(ctx, CodeInvalidParam)
+		} else {
+			ResponseErrorWithMsg(ctx, CodeInvalidParam, removeTopStruct(err_in_ValidationErrors_type.Translate(trans)))
+		}
+		return
+	}
+	newAccessToken, err := logic.RefreshToken(&p)
+	if err != nil {
+		zap.L().Error("RefreshToken failed", zap.Error(err))
+		ResponseError(ctx, CodeInvalidToken)
+		return
+	}
+	ResponseSuccess(ctx, gin.H{
+		"access_token": newAccessToken,
+	})
 }

@@ -7,6 +7,11 @@ type ParamSignUp struct {
 }
 
 type ParamLogin struct {
-	Username   string `json:"username" binding:"required"`
-	Password   string `json:"password" binding:"required"`
+	Username string `json:"username" binding:"required"`
+	Password string `json:"password" binding:"required"`
+}
+
+type ParamRefreshToken struct {
+	AcessToken  string `json:"access_token" binding:"required"`
+	RefreshToken string `json:"refresh_token" binding:"required"`
 }

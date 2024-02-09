@@ -1,9 +1,9 @@
 package jwt
 
 import (
+	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"time"
-	"errors"
 )
 
 type Myclaims struct {
@@ -12,11 +12,15 @@ type Myclaims struct {
 	jwt.StandardClaims
 }
 
-const TokenExpireDuration = time.Hour * 2
+const TokenExpireDuration = time.Second * 30
 
 var mySecret = []byte("这是JWT盐")
 
-func GenToken(userId int64, username string) (string, error) {
+func keyFunc(token *jwt.Token) (interface{}, error) {
+	return mySecret, nil
+}
+
+func GenFullToken(userId int64, username string) (access_token, refresh_token string, err error) {
 	c := Myclaims{
 		UserId:   userId,
 		Username: username,
@@ -26,20 +30,54 @@ func GenToken(userId int64, username string) (string, error) {
 			Issuer:    "bluebell",
 		},
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
-	return token.SignedString(mySecret)
+	access_token, err = jwt.NewWithClaims(jwt.SigningMethodHS256, c).SignedString(mySecret)
+	if err != nil {
+		return
+	}
+	refresh_token, err = jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
+		ExpiresAt: time.Now().Add(TokenExpireDuration * 24).Unix(),
+		IssuedAt:  time.Now().Unix(),
+		Issuer:    "bluebell",
+	}).SignedString(mySecret)
+	return
 }
 
-func ParseToken(tokenString string) (*Myclaims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &Myclaims{}, func(token *jwt.Token) (interface{}, error) {
-		return mySecret, nil
-	})
+func GenAccessToken(userId int64, username string) (access_token string, err error) {
+	c := Myclaims{
+		UserId:   userId,
+		Username: username,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(TokenExpireDuration).Unix(),
+			IssuedAt:  time.Now().Unix(),
+			Issuer:    "bluebell",
+		},
+	}
+	access_token, err = jwt.NewWithClaims(jwt.SigningMethodHS256, c).SignedString(mySecret)
+	return
+}
+
+func ParseAccessToken(tokenString string) (claims *Myclaims, err error) {
+	var token *jwt.Token
+	claims = new(Myclaims)
+	token, err = jwt.ParseWithClaims(tokenString, claims, keyFunc)
 	if err != nil {
 		return nil, err
 	}
-	claims, ok := token.Claims.(*Myclaims)
-	if ok && token.Valid {
-		return claims, nil
+	if !token.Valid {
+		return nil, errors.New("invalid token")
 	}
-	return nil, errors.New("invalid token")
+	return
+}
+
+func RefreshToken(access_token, refresh_token string) (newAccessToken string, err error) {
+	if _, err = jwt.Parse(refresh_token, keyFunc); err != nil {
+		return
+	}
+	var claims Myclaims
+	_, err = jwt.ParseWithClaims(access_token, &claims, keyFunc)
+	v, _ := err.(*jwt.ValidationError)
+	if v.Errors == jwt.ValidationErrorExpired {
+		newAccessToken, err = GenAccessToken(claims.UserId, claims.Username)
+	}
+	return
 }
