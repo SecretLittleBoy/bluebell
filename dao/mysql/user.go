@@ -9,6 +9,12 @@ import (
 
 const secret = "salt"
 
+var (
+	ErrorUserExist       = errors.New("用户已存在")
+	ErrorUserNotExist    = errors.New("用户不存在")
+	ErrorInvalidPassword = errors.New("用户名或密码错误")
+)
+
 func QueryUserByUserName() {
 
 }
@@ -40,7 +46,7 @@ func Login(p *models.User) (err error) {
 	sqlStr := `select user_id, username, password from user where username = ?`
 	err = db.Get(&user, sqlStr, p.Username)
 	if err != nil || encryptPassword(p.Password) != user.Password {
-		err = errors.New("用户名或密码错误")
+		err = ErrorInvalidPassword
 		return
 	}
 	return
