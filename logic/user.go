@@ -4,6 +4,7 @@ import (
 	"bluebell/dao/mysql"
 	"bluebell/models"
 	"bluebell/pkg/snowflake"
+	"bluebell/pkg/jwt"
 	"errors"
 
 	"go.uber.org/zap"
@@ -30,11 +31,15 @@ func SignUp(param *models.ParamSignUp) (err error) {
 	return
 }
 
-func Login(param *models.ParamLogin) (err error) {
+func Login(param *models.ParamLogin) (token string, err error) {
 	userToLogin := &models.User{
 		Username: param.Username,
 		Password: param.Password,
 	}
 	err = mysql.Login(userToLogin)
-	return
+	if err != nil {
+		return "", err
+	} else {
+		return jwt.GenToken(userToLogin.UserID, userToLogin.Username)
+	}
 }

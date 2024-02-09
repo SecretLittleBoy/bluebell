@@ -3,7 +3,6 @@ package controller
 import (
 	"bluebell/logic"
 	"bluebell/models"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -44,11 +43,11 @@ func LoginHandler(c *gin.Context) {
 		}
 		return
 	}
-
-	if err := logic.Login(&p); err != nil {
+	token, err := logic.Login(&p)
+	if err != nil {
 		zap.L().Error("Login failed", zap.Error(err))
 		ResponseError(c, CodeInvalidPassword)
 		return
 	}
-	ResponseSuccess(c, nil)
+	ResponseSuccess(c, token)
 }
