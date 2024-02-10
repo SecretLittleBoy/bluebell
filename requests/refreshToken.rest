@@ -1,0 +1,6 @@
+POST http://localhost:8081/refreshToken
+
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjowLCJ1c2VybmFtZSI6Imx5aCIsImV4cCI6MTcwNzUzNTg1OCwiaWF0IjoxNzA3NTM1ODE4LCJpc3MiOiJibHVlYmVsbCJ9.Tc8_2pkzvjDfB23jB7PDsBoCYe-AL9dRqRWw5SWecGg",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDc1MzY3NzgsImlhdCI6MTcwNzUzNTgxOCwiaXNzIjoiYmx1ZWJlbGwifQ.ocvvmlPmawB6mQaTUraLLQnVw-ycBPo-eEQvBG7Agcg"
+}

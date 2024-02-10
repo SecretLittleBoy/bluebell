@@ -12,7 +12,7 @@ type Myclaims struct {
 	jwt.StandardClaims
 }
 
-const TokenExpireDuration = time.Second * 30
+const TokenExpireDuration = time.Second * 40
 
 var mySecret = []byte("这是JWT盐")
 
