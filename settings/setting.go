@@ -57,7 +57,7 @@ type SnowflakeConfig struct {
 func Init() (err error) {
 	viper.SetConfigName("config.yaml")
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath(".")
+	viper.AddConfigPath("./conf")
 
 	if err = viper.ReadInConfig(); err != nil {
 		fmt.Printf("Fatal error viper.ReadInConfig: %s \n", err)
