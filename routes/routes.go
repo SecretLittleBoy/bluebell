@@ -6,8 +6,9 @@ import (
 	"bluebell/middlewares"
 	"bluebell/settings"
 
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Init() *gin.Engine {
@@ -24,11 +25,14 @@ func Init() *gin.Engine {
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
 	})
-	r.GET("/userInfo", middlewares.JWTAuthMiddleware(), controller.UserInfoHander)
 
-	r.POST("/refreshToken", controller.RefreshTokenHandler)
-	r.POST("/signup", controller.SignUpHandler)
-	r.POST("/login", controller.LoginHandler)
+	v1 := r.Group("/api/v1")
+	v1.POST("/signup", controller.SignUpHandler)
+	v1.POST("/login", controller.LoginHandler)
+	v1.GET("/community", controller.CommunityHandler)
+	v1.Use(middlewares.JWTAuthMiddleware())
+	v1.GET("/userInfo", controller.UserInfoHander)
+	v1.POST("/refreshToken", controller.RefreshTokenHandler)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "404"})

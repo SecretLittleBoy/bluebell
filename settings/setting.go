@@ -10,6 +10,7 @@ var Config = new(ConfigStruct)
 
 type ConfigStruct struct {
 	*AppConfig   `mapstructure:"app"`
+	*AuthConfig  `mapstructure:"auth"`
 	*LogConfig   `mapstructure:"log"`
 	*MySQLConfig `mapstructure:"mysql"`
 	*RedisConfig `mapstructure:"redis"`
@@ -21,6 +22,11 @@ type AppConfig struct {
 	Mode    string `mapstructure:"mode"`
 	Version string `mapstructure:"version"`
 	Port    int    `mapstructure:"port"`
+}
+
+type AuthConfig struct {
+	TokenExpireDurationNum int64 `mapstructure:"token_expire_duration_num"`
+	TokenExpireDurationUnit string `mapstructure:"token_expire_duration_unit"`
 }
 
 type LogConfig struct {

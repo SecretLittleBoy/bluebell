@@ -3,6 +3,9 @@ app:
   version: "1.0.0"
   mode: "debug"
   port: 8081
+auth:
+  token_expire_duration_num: 24
+  token_expire_duration_unit: "hour"
 log:
   level: "debug"
   filename: "web_app.log"

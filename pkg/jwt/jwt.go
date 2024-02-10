@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"bluebell/settings"
 	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"time"
@@ -12,7 +13,18 @@ type Myclaims struct {
 	jwt.StandardClaims
 }
 
-const TokenExpireDuration = time.Second * 40
+func getTokenExpireDuration() time.Duration {
+	switch settings.Config.AuthConfig.TokenExpireDurationUnit {
+	case "hour", "h":
+		return time.Hour * time.Duration(settings.Config.AuthConfig.TokenExpireDurationNum)
+	case "minute", "min", "m":
+		return time.Minute * time.Duration(settings.Config.AuthConfig.TokenExpireDurationNum)
+	case "second", "sec", "s":
+		return time.Second * time.Duration(settings.Config.AuthConfig.TokenExpireDurationNum)
+	default:
+		return time.Hour * time.Duration(settings.Config.AuthConfig.TokenExpireDurationNum)
+	}
+}
 
 var mySecret = []byte("这是JWT盐")
 
@@ -25,7 +37,7 @@ func GenFullToken(userId int64, username string) (access_token, refresh_token st
 		UserId:   userId,
 		Username: username,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(TokenExpireDuration).Unix(),
+			ExpiresAt: time.Now().Add(getTokenExpireDuration()).Unix(),
 			IssuedAt:  time.Now().Unix(),
 			Issuer:    "bluebell",
 		},
@@ -35,7 +47,7 @@ func GenFullToken(userId int64, username string) (access_token, refresh_token st
 		return
 	}
 	refresh_token, err = jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-		ExpiresAt: time.Now().Add(TokenExpireDuration * 24).Unix(),
+		ExpiresAt: time.Now().Add(getTokenExpireDuration() * 24).Unix(),
 		IssuedAt:  time.Now().Unix(),
 		Issuer:    "bluebell",
 	}).SignedString(mySecret)
@@ -47,7 +59,7 @@ func GenAccessToken(userId int64, username string) (access_token string, err err
 		UserId:   userId,
 		Username: username,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(TokenExpireDuration).Unix(),
+			ExpiresAt: time.Now().Add(getTokenExpireDuration()).Unix(),
 			IssuedAt:  time.Now().Unix(),
 			Issuer:    "bluebell",
 		},

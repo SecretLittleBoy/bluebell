@@ -1,4 +1,4 @@
-POST http://localhost:8081/signup
+POST http://localhost:8081/api/v1/signup
 
 {
     "username": "lyh",
@@ -7,7 +7,7 @@ POST http://localhost:8081/signup
 }
 
 ###
-POST http://localhost:8081/signup
+POST http://localhost:8081/api/v1/signup
 
 {
     "username": "lyh",
@@ -16,7 +16,7 @@ POST http://localhost:8081/signup
 }
 
 ###
-POST http://localhost:8081/signup
+POST http://localhost:8081/api/v1/signup
 
 {
     "username": "lyh",
@@ -25,7 +25,7 @@ POST http://localhost:8081/signup
 }
 
 ###
-POST http://localhost:8081/signup
+POST http://localhost:8081/api/v1/signup
 
 {
     "username": "lyh"
