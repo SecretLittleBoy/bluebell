@@ -9,11 +9,11 @@ import (
 var Config = new(ConfigStruct)
 
 type ConfigStruct struct {
-	*AppConfig   `mapstructure:"app"`
-	*AuthConfig  `mapstructure:"auth"`
-	*LogConfig   `mapstructure:"log"`
-	*MySQLConfig `mapstructure:"mysql"`
-	*RedisConfig `mapstructure:"redis"`
+	*AppConfig       `mapstructure:"app"`
+	*AuthConfig      `mapstructure:"auth"`
+	*LogConfig       `mapstructure:"log"`
+	*MySQLConfig     `mapstructure:"mysql"`
+	*RedisConfig     `mapstructure:"redis"`
 	*SnowflakeConfig `mapstructure:"snowflake"`
 }
 
@@ -25,7 +25,7 @@ type AppConfig struct {
 }
 
 type AuthConfig struct {
-	TokenExpireDurationNum int64 `mapstructure:"token_expire_duration_num"`
+	TokenExpireDurationNum  int64  `mapstructure:"token_expire_duration_num"`
 	TokenExpireDurationUnit string `mapstructure:"token_expire_duration_unit"`
 }
 
@@ -86,5 +86,6 @@ func Init() (err error) {
 }
 
 func PrintConfig() {
-	fmt.Printf("load config: app=%#v, log=%#v, mysql=%#v, redis=%#v,snowflake=%#v \n", Config.AppConfig, Config.LogConfig, Config.MySQLConfig, Config.RedisConfig, Config.SnowflakeConfig)
+	fmt.Printf("load config: app=%#v, auth=%#v, log=%#v, mysql=%#v, redis=%#v,snowflake=%#v \n",
+		Config.AppConfig, Config.AuthConfig, Config.LogConfig, Config.MySQLConfig, Config.RedisConfig, Config.SnowflakeConfig)
 }

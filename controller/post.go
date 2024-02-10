@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
@@ -26,4 +28,38 @@ func CreatePostHandler(c *gin.Context) {
 		return
 	}
 	ResponseSuccess(c, nil)
+}
+
+func GetPostDetailHandler(c *gin.Context) {
+	postIdStr := c.Param("id")
+	postId, err := strconv.ParseInt(postIdStr, 10, 64)
+	if err != nil {
+		ResponseError(c, CodeInvalidParam)
+		return
+	}
+	post, err := logic.GetPostById(postId)
+	if err != nil {
+		zap.L().Error("logic.GetPostById() failed", zap.Error(err))
+		ResponseError(c, CodeServerBusy)
+		return
+	}
+	ResponseSuccess(c, post)
+}
+
+func GetPostListHandler(c *gin.Context) {
+	pageNum, err := strconv.ParseInt(c.Query("page"), 10, 64)
+	if err != nil {
+		pageNum = 1
+	}
+	pageSize, err := strconv.ParseInt(c.Query("size"), 10, 64)
+	if err != nil {
+		pageSize = 10
+	}
+	data , err := logic.GetPostList(pageNum, pageSize)
+	if err != nil {
+		zap.L().Error("logic.GetPostList() failed", zap.Error(err))
+		ResponseError(c, CodeServerBusy)
+		return
+	}
+	ResponseSuccess(c, data)
 }

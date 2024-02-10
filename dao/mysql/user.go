@@ -37,11 +37,19 @@ func encryptPassword(password string) string {
 
 func Login(p *models.User) (err error) {
 	var user models.User
-	sqlStr := `select user_id, username, password from user where username = ?`
+	sqlStr := `select user_id, password from user where username = ?`
 	err = db.Get(&user, sqlStr, p.Username)
 	if err != nil || encryptPassword(p.Password) != user.Password {
 		err = ErrorInvalidPassword
 		return
 	}
+	p.UserID = user.UserID
+	return
+}
+
+func GetUserByID(userID int64) (user *models.User, err error) {
+	user = new(models.User)
+	sqlStr := `select user_id, username from user where user_id = ?`
+	err = db.Get(user, sqlStr, userID)
 	return
 }
