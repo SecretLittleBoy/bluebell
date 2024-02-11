@@ -3,6 +3,7 @@ package controller
 import (
 	"bluebell/logic"
 	"bluebell/models"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -61,7 +62,7 @@ func UserInfoHander(ctx *gin.Context) {
 		return
 	}
 	ResponseSuccess(ctx, gin.H{
-		"user_id":  userID,
+		"user_id":  strconv.FormatInt(userID, 10),
 		"username": username,
 	})
 }
