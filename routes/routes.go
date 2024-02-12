@@ -39,6 +39,7 @@ func Init() *gin.Engine {
 	v1.POST("/post", controller.CreatePostHandler)
 	v1.GET("/post/:id", controller.GetPostDetailHandler)
 	v1.GET("/post/", controller.GetPostListHandler)
+	v1.POST("/vote", controller.PostVoteController)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "404"})
