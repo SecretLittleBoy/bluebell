@@ -1,6 +1,7 @@
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc4ODgxOTgsImlhdCI6MTcwNzgwMTc5OCwiaXNzIjoiYmx1ZWJlbGwifQ.3CoOwZya5RJuTX-6nV2g8o5HWjPDL0HiRkEr7a79jb8
+
 POST http://localhost:8081/api/v1/post
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc2NjAyNDAsImlhdCI6MTcwNzU3Mzg0MCwiaXNzIjoiYmx1ZWJlbGwifQ.HHg9KkIlHAuwhJE1uZi_wskxTWmVwKBJA_vPZFj2jYs
-Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
     "community_id": 1,
@@ -10,20 +11,20 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8081/api/v1/post
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc2NjAyNDAsImlhdCI6MTcwNzU3Mzg0MCwiaXNzIjoiYmx1ZWJlbGwifQ.HHg9KkIlHAuwhJE1uZi_wskxTWmVwKBJA_vPZFj2jYs
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
     "community_id": 1,
-    "title": "求问",
-    "content": "这是一个问题"
+    "title": "求问2.13.2",
+    "content": "这是一个问题2.13.2"
 }
 
 
 ###
 GET http://localhost:8081/api/v1/post/14689585959276544
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc2NjAyNDAsImlhdCI6MTcwNzU3Mzg0MCwiaXNzIjoiYmx1ZWJlbGwifQ.HHg9KkIlHAuwhJE1uZi_wskxTWmVwKBJA_vPZFj2jYs
+Authorization: Bearer {{TOKEN}}
 
 ###
 GET http://localhost:8081/api/v1/post?page=1&size=100
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc2NjAyNDAsImlhdCI6MTcwNzU3Mzg0MCwiaXNzIjoiYmx1ZWJlbGwifQ.HHg9KkIlHAuwhJE1uZi_wskxTWmVwKBJA_vPZFj2jYs
+Authorization: Bearer {{TOKEN}}

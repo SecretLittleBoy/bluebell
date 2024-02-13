@@ -1,8 +1,10 @@
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc4MjkxNzcsImlhdCI6MTcwNzc0Mjc3NywiaXNzIjoiYmx1ZWJlbGwifQ.JOVh7LFgrhqTuo2Gs5P7pMggJ6-DVBWv75U6Ani5nAo
+
 POST http://localhost:8081/api/v1/vote
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc4MjkxNzcsImlhdCI6MTcwNzc0Mjc3NywiaXNzIjoiYmx1ZWJlbGwifQ.JOVh7LFgrhqTuo2Gs5P7pMggJ6-DVBWv75U6Ani5nAo
+Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
-    "post_id": "111",
+    "post_id": "15682833930522624",
     "direction": -1
 }

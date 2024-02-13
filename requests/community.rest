@@ -1,6 +1,8 @@
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc4ODgxOTgsImlhdCI6MTcwNzgwMTc5OCwiaXNzIjoiYmx1ZWJlbGwifQ.3CoOwZya5RJuTX-6nV2g8o5HWjPDL0HiRkEr7a79jb8
+
 GET http://localhost:8081/api/v1/community
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjowLCJ1c2VybmFtZSI6Imx5aCIsImV4cCI6MTcwNzY0NTUwNSwiaWF0IjoxNzA3NTU5MTA1LCJpc3MiOiJibHVlYmVsbCJ9.jqIgTgLYHqI-l2ODj7tuwGi71a-9LIwihzdliO22RNU
+Authorization: Bearer {{TOKEN}}
 
 ###
 GET http://localhost:8081/api/v1/community/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjowLCJ1c2VybmFtZSI6Imx5aCIsImV4cCI6MTcwNzY0NTUwNSwiaWF0IjoxNzA3NTU5MTA1LCJpc3MiOiJibHVlYmVsbCJ9.jqIgTgLYHqI-l2ODj7tuwGi71a-9LIwihzdliO22RNU
+Authorization: Bearer {{TOKEN}}
