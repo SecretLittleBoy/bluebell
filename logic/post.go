@@ -79,7 +79,7 @@ func GetPostList2(p *models.ParamPostList) (data []*models.ApiPostDetail, err er
 	if err != nil {
 		return
 	}
-	//data = make([]*models.ApiPostDetail, 0, len(posts))
+	data = make([]*models.ApiPostDetail, 0, len(posts))
 	for _, post := range posts {
 		var author *models.User
 		author, err = mysql.GetUserByID(post.AuthorID)
