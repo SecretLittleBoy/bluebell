@@ -34,5 +34,5 @@ GET http://localhost:8081/api/v2/post?page=1&size=100&order=score
 Authorization: Bearer {{TOKEN}}
 
 ###
-GET http://localhost:8081/api/v2/community/1/post
+GET http://localhost:8081/api/v1/community/1/post
 Authorization: Bearer {{TOKEN}}
