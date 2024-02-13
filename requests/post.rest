@@ -1,4 +1,4 @@
-@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc4ODgxOTgsImlhdCI6MTcwNzgwMTc5OCwiaXNzIjoiYmx1ZWJlbGwifQ.3CoOwZya5RJuTX-6nV2g8o5HWjPDL0HiRkEr7a79jb8
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc4OTk3ODQsImlhdCI6MTcwNzgxMzM4NCwiaXNzIjoiYmx1ZWJlbGwifQ.hoacgfzCt8SqW4ng-vDUEGI2nfL_5s94W9pjvyWvzHg
 
 POST http://localhost:8081/api/v1/post
 Authorization: Bearer {{TOKEN}}
@@ -27,4 +27,8 @@ Authorization: Bearer {{TOKEN}}
 
 ###
 GET http://localhost:8081/api/v1/post?page=1&size=100
+Authorization: Bearer {{TOKEN}}
+
+###
+GET http://localhost:8081/api/v2/post?page=1&size=100
 Authorization: Bearer {{TOKEN}}

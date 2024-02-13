@@ -55,7 +55,26 @@ func GetPostListHandler(c *gin.Context) {
 	if err != nil {
 		pageSize = 10
 	}
-	data , err := logic.GetPostList(pageNum, pageSize)
+	data, err := logic.GetPostList(pageNum, pageSize)
+	if err != nil {
+		zap.L().Error("logic.GetPostList() failed", zap.Error(err))
+		ResponseError(c, CodeServerBusy)
+		return
+	}
+	ResponseSuccess(c, data)
+}
+
+func GetPostListHandler2(c *gin.Context) {
+	p := &models.ParamPostList{
+		Page: 1,
+		Size: 10,
+		Order: models.OrderByTime,
+	}
+	if err := c.ShouldBindQuery(p); err != nil {
+		ResponseError(c, CodeInvalidParam)
+		return
+	}
+	data, err := logic.GetPostList2(p)
 	if err != nil {
 		zap.L().Error("logic.GetPostList() failed", zap.Error(err))
 		ResponseError(c, CodeServerBusy)

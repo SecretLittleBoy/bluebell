@@ -45,11 +45,3 @@ func VoteForPost(userID, postID string, direction float64) error {
 	_, err := pipeline.Exec()
 	return err
 }
-
-func CreatePost(postID int64) error {
-	pipeline := rdb.TxPipeline()
-	pipeline.ZAdd(getRedisKey(KeyPostTimeZSet), redis.Z{Score: float64(time.Now().Unix()), Member: postID})
-	pipeline.ZAdd(getRedisKey(KeyPostScoreZSet), redis.Z{Score: float64(time.Now().Unix()), Member: postID})
-	_, err := pipeline.Exec()
-	return err
-}

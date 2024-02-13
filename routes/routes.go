@@ -41,6 +41,10 @@ func Init() *gin.Engine {
 	v1.GET("/post/", controller.GetPostListHandler)
 	v1.POST("/vote", controller.PostVoteController)
 
+	v2 := r.Group("/api/v2")
+	v2.Use(middlewares.JWTAuthMiddleware())
+	v2.GET("/post", controller.GetPostListHandler2)
+
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "404"})
 	})
