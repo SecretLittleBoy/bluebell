@@ -43,7 +43,8 @@ func Init() *gin.Engine {
 
 	v2 := r.Group("/api/v2")
 	v2.Use(middlewares.JWTAuthMiddleware())
-	v2.GET("/post", controller.GetPostListHandler2)
+	v2.GET("/post", controller.GetPostListHandler2)//可以按时间或者分数排序
+	v2.GET("/community/:id/post", controller.GetCommunityPostListHandler)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "404"})

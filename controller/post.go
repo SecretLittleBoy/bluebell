@@ -66,8 +66,8 @@ func GetPostListHandler(c *gin.Context) {
 
 func GetPostListHandler2(c *gin.Context) {
 	p := &models.ParamPostList{
-		Page: 1,
-		Size: 10,
+		Page:  1,
+		Size:  10,
 		Order: models.OrderByTime,
 	}
 	if err := c.ShouldBindQuery(p); err != nil {
@@ -77,6 +77,33 @@ func GetPostListHandler2(c *gin.Context) {
 	data, err := logic.GetPostList2(p)
 	if err != nil {
 		zap.L().Error("logic.GetPostList() failed", zap.Error(err))
+		ResponseError(c, CodeServerBusy)
+		return
+	}
+	ResponseSuccess(c, data)
+}
+
+func GetCommunityPostListHandler(c *gin.Context) {
+	communityID, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		ResponseError(c, CodeInvalidParam)
+		return
+	}
+	p := &models.ParamCommunityPostList{
+		ParamPostList: models.ParamPostList{
+			Page:  1,
+			Size:  10,
+			Order: models.OrderByTime,
+		},
+		CommunityID: communityID,
+	}
+	if err := c.ShouldBindQuery(p); err != nil {
+		ResponseError(c, CodeInvalidParam)
+		return
+	}
+	data, err := logic.GetCommunityPostList(p)
+	if err != nil {
+		zap.L().Error("logic.GetCommunityPostList() failed", zap.Error(err))
 		ResponseError(c, CodeServerBusy)
 		return
 	}

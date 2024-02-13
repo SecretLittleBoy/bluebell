@@ -5,8 +5,8 @@ Authorization: Bearer {{TOKEN}}
 
 {
     "community_id": 1,
-    "title": "this is title3",
-    "content": "this is content3"
+    "title": "ggg",
+    "content": "ggggggg"
 }
 
 ###
@@ -30,5 +30,9 @@ GET http://localhost:8081/api/v1/post?page=1&size=100
 Authorization: Bearer {{TOKEN}}
 
 ###
-GET http://localhost:8081/api/v2/post?page=1&size=100
+GET http://localhost:8081/api/v2/post?page=1&size=100&order=score
+Authorization: Bearer {{TOKEN}}
+
+###
+GET http://localhost:8081/api/v2/community/1/post
 Authorization: Bearer {{TOKEN}}
