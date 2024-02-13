@@ -2,6 +2,7 @@ package routes
 
 import (
 	"bluebell/controller"
+	_ "bluebell/docs"
 	"bluebell/logger"
 	"bluebell/middlewares"
 	"bluebell/settings"
@@ -9,6 +10,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/swaggo/files"                  // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
 func Init() *gin.Engine {
@@ -25,6 +28,7 @@ func Init() *gin.Engine {
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
 	})
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	v1 := r.Group("/api/v1")
 	v1.POST("/signup", controller.SignUpHandler)
@@ -44,8 +48,7 @@ func Init() *gin.Engine {
 
 	v2 := r.Group("/api/v2")
 	v2.Use(middlewares.JWTAuthMiddleware())
-	v2.GET("/post", controller.GetPostListHandler2)//可以按时间或者分数排序
-	
+	v2.GET("/post", controller.GetPostListHandler2) //可以按时间或者分数排序
 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "404"})

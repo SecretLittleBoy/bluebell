@@ -19,6 +19,16 @@ import (
 	"go.uber.org/zap"
 )
 
+
+// @title bluebell项目接口文档
+// @version 1.0
+// @description Go web开发进阶项目实战课程bluebell
+
+// @contact.name lyh
+// @contact.url 2045918921@qq.com
+
+// @host 127.0.0.1:8081
+// @BasePath /api/
 func main() {
 	if err := settings.Init(); err != nil {
 		fmt.Printf("Fatal error settings.Init: %s \n", err)
