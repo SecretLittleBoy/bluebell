@@ -1,4 +1,4 @@
-@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc4OTk3ODQsImlhdCI6MTcwNzgxMzM4NCwiaXNzIjoiYmx1ZWJlbGwifQ.hoacgfzCt8SqW4ng-vDUEGI2nfL_5s94W9pjvyWvzHg
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDc5MjAwNjEsImlhdCI6MTcwNzgzMzY2MSwiaXNzIjoiYmx1ZWJlbGwifQ.FnpEi_9vcQmUlnTW7gS_bc8qYBtBeTnMTZCc2waRBUk
 
 POST http://localhost:8081/api/v1/post
 Authorization: Bearer {{TOKEN}}
@@ -34,5 +34,17 @@ GET http://localhost:8081/api/v2/post?page=1&size=100&order=score
 Authorization: Bearer {{TOKEN}}
 
 ###
+GET http://localhost:8081/api/v2/post
+Accept: application/json
+Authorization: Bearer {{TOKEN}}
+Referer: http://localhost:8081/
+Sec-Ch-Ua:"Not A(Brand";v="99", "Microsoft Edge";v="121", "Chromium";v="121"
+Sec-Ch-Ua-Mobile:?0
+Sec-Ch-Ua-Platform:"macOS"
+User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0
+
+
+###
 GET http://localhost:8081/api/v1/community/1/post
 Authorization: Bearer {{TOKEN}}
+

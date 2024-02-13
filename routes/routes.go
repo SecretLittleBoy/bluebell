@@ -10,7 +10,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/swaggo/files"                  // swagger embed files
+	swaggerfiles "github.com/swaggo/files"     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
@@ -28,7 +28,7 @@ func Init() *gin.Engine {
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
 	})
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler)) //swagger/index.html
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler)) //swagger/index.html
 
 	v1 := r.Group("/api/v1")
 	v1.POST("/signup", controller.SignUpHandler)

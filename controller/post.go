@@ -64,6 +64,17 @@ func GetPostListHandler(c *gin.Context) {
 	ResponseSuccess(c, data)
 }
 
+// GetPostListHandler2 升级版帖子列表接口
+// @Summary 升级版帖子列表接口
+// @Description 可按社区按时间或分数排序查询帖子列表接口
+// @Tags 帖子相关接口(api分组展示使用的)
+// @Accept application/json
+// @Produce application/json
+// @Param Authorization header string true "Bearer JWT"
+// @Param object query models.ParamPostList false "查询参数"
+// @Security ApiKeyAuth
+// @Success 200 {object} _ResponsePostList
+// @Router /v2/post [get]
 func GetPostListHandler2(c *gin.Context) {
 	p := &models.ParamPostList{
 		Page:  1,
