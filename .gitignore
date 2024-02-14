@@ -2,3 +2,4 @@ config.yaml
 *.log
 dump.rdb
 /docs
+.DS_Store

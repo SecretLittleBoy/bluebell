@@ -10,10 +10,10 @@ import (
 
 	"net/http"
 
+	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
-	"github.com/gin-contrib/pprof"
 )
 
 func Init() *gin.Engine {
@@ -24,6 +24,11 @@ func Init() *gin.Engine {
 
 	r.Use(logger.GinLogger(), logger.GinRecovery(true), middlewares.RateLimiterTokenBucket(time.Millisecond, 100))
 
+	r.LoadHTMLFiles("./templates/index.html")
+	r.Static("/static", "./static")
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
 	r.GET("/version", func(c *gin.Context) {
 		c.String(http.StatusOK, settings.Config.Version)
 	})
@@ -51,7 +56,6 @@ func Init() *gin.Engine {
 	v2 := r.Group("/api/v2")
 	v2.Use(middlewares.JWTAuthMiddleware())
 	v2.GET("/post", controller.GetPostListHandler2) //可以按时间或者分数排序
-
 
 	pprof.Register(r) // 性能分析
 	r.NoRoute(func(c *gin.Context) {
