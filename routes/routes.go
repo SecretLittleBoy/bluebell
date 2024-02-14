@@ -13,6 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
+	"github.com/gin-contrib/pprof"
 )
 
 func Init() *gin.Engine {
@@ -21,7 +22,7 @@ func Init() *gin.Engine {
 	}
 	r := gin.New()
 
-	r.Use(logger.GinLogger(), logger.GinRecovery(true), middlewares.RateLimiterTokenBucket(2*time.Second, 1))
+	r.Use(logger.GinLogger(), logger.GinRecovery(true), middlewares.RateLimiterTokenBucket(time.Millisecond, 100))
 
 	r.GET("/version", func(c *gin.Context) {
 		c.String(http.StatusOK, settings.Config.Version)
@@ -51,6 +52,8 @@ func Init() *gin.Engine {
 	v2.Use(middlewares.JWTAuthMiddleware())
 	v2.GET("/post", controller.GetPostListHandler2) //可以按时间或者分数排序
 
+
+	pprof.Register(r) // 性能分析
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"msg": "404"})
 	})
