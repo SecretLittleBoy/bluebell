@@ -21,7 +21,7 @@ func Init() *gin.Engine {
 	}
 	r := gin.New()
 
-	r.Use(logger.GinLogger(), logger.GinRecovery(true), middlewares.RateLimiter(2*time.Second, 1))
+	r.Use(logger.GinLogger(), logger.GinRecovery(true), middlewares.RateLimiterTokenBucket(2*time.Second, 1))
 
 	r.GET("/version", func(c *gin.Context) {
 		c.String(http.StatusOK, settings.Config.Version)
