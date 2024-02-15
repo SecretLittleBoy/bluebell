@@ -43,6 +43,8 @@ func Init() *gin.Engine {
 
 	v1.Use(middlewares.JWTAuthMiddleware())
 
+	v1.POST("upload_image", controller.UploadImageHandler)
+
 	v1.GET("/community", controller.CommunityHandler)
 	v1.GET("/community/:id", controller.CommunityDetailHandler)
 	v1.GET("/community/:id/post", controller.GetCommunityPostListHandler)

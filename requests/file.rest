@@ -1,0 +1,30 @@
+@TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDgwNTk5NzAsImlhdCI6MTcwNzk3MzU3MCwiaXNzIjoiYmx1ZWJlbGwifQ.zy3PkTLn8lWbmmYzRWyYyoJ_0XiBhr4m8ARDBVXRYtI
+### ---------------------------- UPLOAD FEED IMAGES ----------------------------
+POST http://localhost:8081/upload_feed_images
+Authorization: {{TOKEN}}
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="images"; filename="my_image.jpg"
+Content-Type: image/jpeg
+
+< /Users/anel-bou/Desktop/my_image.jpg
+--boundary
+Content-Disposition: form-data; name="images"; filename="my_image.jpg"
+Content-Type: image/jpeg
+
+< /Users/anel-bou/Desktop/my_image.jpg
+--boundary--
+### -------------------------------------------------------------------------
+
+###
+POST http://localhost:8081/api/v1/upload_image
+Authorization: {{TOKEN}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="image.jpg"
+Content-Type: image/jpeg
+
+< /Users/yihaolong/go/src/bluebell/file/image.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
