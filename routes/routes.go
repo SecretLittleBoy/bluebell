@@ -22,7 +22,7 @@ func Init() *gin.Engine {
 	}
 	r := gin.New()
 
-	r.Use(logger.GinLogger(), logger.GinRecovery(true), middlewares.RateLimiterTokenBucket(time.Millisecond, 100))
+	r.Use(logger.GinLogger(), logger.GinRecovery(true), middlewares.RateLimiterTokenBucket(time.Millisecond, 100), middlewares.CorsAllowAll())
 
 	r.LoadHTMLFiles("./templates/index.html")
 	r.Static("/static", "./static")
