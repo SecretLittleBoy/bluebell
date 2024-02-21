@@ -6,6 +6,8 @@ import (
 	"mime/multipart"
 	"path/filepath"
 
+	"bluebell/dao/oss"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,9 +20,11 @@ func UploadImage(c *gin.Context, file *multipart.FileHeader) (string, error) {
 	h := md5.New()
 	h.Write([]byte(fileNameSecret))
 	saveFilename := hex.EncodeToString(h.Sum([]byte(fileBaseName))) + fileExt
-	// 保存文件到本地
-	if err := c.SaveUploadedFile(file, "./file/"+saveFilename); err != nil {
+	//return oss.UploadFileFromReader(saveFilename, io.Reader(file))
+	src, err := file.Open()
+	if err != nil {
 		return "", err
 	}
-	return saveFilename, nil
+	defer src.Close()
+	return oss.UploadFileFromReader(saveFilename, src)
 }

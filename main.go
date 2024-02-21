@@ -3,6 +3,7 @@ package main
 import (
 	"bluebell/dao/mysql"
 	"bluebell/dao/redis"
+	"bluebell/dao/oss"
 	"bluebell/logger"
 	"bluebell/routes"
 	"bluebell/settings"
@@ -58,6 +59,11 @@ func main() {
 		return
 	}
 	defer redis.Close()	
+
+	if err := oss.Init(); err != nil {
+		fmt.Printf("init oss failed, err:%v\n", err)
+		return
+	}
 
 	if err := controller.InitTrans("zh"); err != nil {
 		fmt.Printf("init gin translator failed, err:%v\n", err)

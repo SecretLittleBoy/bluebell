@@ -1,4 +1,5 @@
-@TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDgwNTk5NzAsImlhdCI6MTcwNzk3MzU3MCwiaXNzIjoiYmx1ZWJlbGwifQ.zy3PkTLn8lWbmmYzRWyYyoJ_0XiBhr4m8ARDBVXRYtI
+@TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMzU5ODA4MjUzNzA5OTI2NCwidXNlcm5hbWUiOiJseWgiLCJleHAiOjE3MDg2MDY2NjQsImlhdCI6MTcwODUyMDI2NCwiaXNzIjoiYmx1ZWJlbGwifQ.ZcGHxr5Y-BooJ1fgDa-gQhjEobTkm7hTrtyX3UAvbCs
+
 ### ---------------------------- UPLOAD FEED IMAGES ----------------------------
 POST http://localhost:8081/upload_feed_images
 Authorization: {{TOKEN}}

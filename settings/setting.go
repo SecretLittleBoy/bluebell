@@ -14,6 +14,7 @@ type ConfigStruct struct {
 	*LogConfig       `mapstructure:"log"`
 	*MySQLConfig     `mapstructure:"mysql"`
 	*RedisConfig     `mapstructure:"redis"`
+	*OssConfig       `mapstructure:"oss"`
 	*SnowflakeConfig `mapstructure:"snowflake"`
 }
 
@@ -55,6 +56,13 @@ type RedisConfig struct {
 	PoolSize int    `mapstructure:"pool_size"`
 }
 
+type OssConfig struct {
+	Endpoint        string `mapstructure:"endpoint"`
+	AccessKeyId     string `mapstructure:"accessKeyId"`
+	AccessKeySecret string `mapstructure:"accessKeySecret"`
+	Bucket          string `mapstructure:"bucket"`
+}
+
 type SnowflakeConfig struct {
 	StartTime string `mapstructure:"start_time"`
 	MachineID int64  `mapstructure:"machine_id"`
@@ -86,6 +94,6 @@ func Init() (err error) {
 }
 
 func PrintConfig() {
-	fmt.Printf("load config: app=%#v, auth=%#v, log=%#v, mysql=%#v, redis=%#v,snowflake=%#v \n",
-		Config.AppConfig, Config.AuthConfig, Config.LogConfig, Config.MySQLConfig, Config.RedisConfig, Config.SnowflakeConfig)
+	fmt.Printf("load config: app=%#v,\nauth=%#v,\nlog=%#v,\nmysql=%#v,\nredis=%#v,\noss=%#v,\nsnowflake=%#v \n",
+		Config.AppConfig, Config.AuthConfig, Config.LogConfig, Config.MySQLConfig, Config.RedisConfig, Config.OssConfig, Config.SnowflakeConfig)
 }
