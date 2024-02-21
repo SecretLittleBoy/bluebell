@@ -29,3 +29,7 @@ Content-Type: image/jpeg
 
 < /Users/yihaolong/go/src/bluebell/file/image.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+GET http://localhost:8081/api/v1/image/696d6167652e6a706746a5c759a92cc0d3aeefbc6486ee25f4.jpg
+Authorization: {{TOKEN}}

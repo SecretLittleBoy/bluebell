@@ -43,3 +43,11 @@ func UploadFileFromReader(newName string, reader io.Reader) (string, error) {
 	}
 	return settings.Config.OssConfig.Bucket + "." + settings.Config.OssConfig.Endpoint + "/" + newName, nil
 }
+
+func GetObject(fileName string) ([]byte, error) {
+	body, err := bucket.GetObject(fileName)
+	if err != nil {
+		return nil, err
+	}
+	return io.ReadAll(body)
+}

@@ -20,11 +20,14 @@ func UploadImage(c *gin.Context, file *multipart.FileHeader) (string, error) {
 	h := md5.New()
 	h.Write([]byte(fileNameSecret))
 	saveFilename := hex.EncodeToString(h.Sum([]byte(fileBaseName))) + fileExt
-	//return oss.UploadFileFromReader(saveFilename, io.Reader(file))
 	src, err := file.Open()
 	if err != nil {
 		return "", err
 	}
 	defer src.Close()
 	return oss.UploadFileFromReader(saveFilename, src)
+}
+
+func GetImage(fileName string) ([]byte, error) {
+	return oss.GetObject(fileName)
 }

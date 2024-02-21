@@ -2,6 +2,8 @@ package controller
 
 import (
 	"bluebell/logic"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,4 +21,18 @@ func UploadImageHandler(c *gin.Context) {
 			"file_name": savedFileName,
 		})
 	}
+}
+
+func GetImageHandler(c *gin.Context) {
+	fileName := c.Param("filename")
+	if fileName == "" {
+		ResponseError(c, CodeInvalidParam)
+		return
+	}
+	file, err := logic.GetImage(fileName)
+	if err != nil {
+		ResponseError(c, CodeServerBusy)
+		return
+	}
+	c.Data(http.StatusOK, "image/jpg", file)
 }
